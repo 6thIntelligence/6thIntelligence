@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login{% endblock %}
+
+{% block content %}
+<div style="height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg-page);">
+    <div class="card" style="width: 100%; max-width: 400px; padding: 2.5rem;">
+        <div class="logo" style="justify-content: center; margin-bottom: 2rem;">
+            <div class="logo-icon"></div>
+            ExpertAdmin
+        </div>
+
+        <h2 style="text-align: center; margin-bottom: 0.5rem;">Welcome Back</h2>
+        <p class="text-small" style="text-align: center; margin-bottom: 2rem;">Sign in to manage your Enterprise AI</p>
+
+        {% if error %}
+        <div
+            style="background: rgba(239, 68, 68, 0.1); color: var(--error-color); padding: 0.75rem; border-radius: 8px; font-size: 0.85rem; margin-bottom: 1.5rem; text-align: center;">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="/api/auth/login" method="POST">
+            <div class="form-group" style="margin-bottom: 1.25rem;">
+                <label>Email Address</label>
+                <input type="email" name="email" class="form-control" placeholder="admin@example.com" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; border-radius: 8px; padding: 0.875rem;">Sign
+                In</button>
+        </form>
+
+        <div style="margin-top: 1.5rem; text-align: center;" class="text-small">
+            Need an account? <a href="/signup" style="color: var(--secondary-color); font-weight: 600;">Sign Up</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,110 @@
+[
+  {
+    "timestamp": "2026-01-22T14:58:30.521711",
+    "date": "2026-01-22",
+    "model": "google/gemma-3n-e2b-it:free",
+    "tokens_in": 11,
+    "tokens_out": 22,
+    "cost": 0.0,
+    "session_id": "8d7900e4-c1b2-4073-a4b9-1c6cfff24adc"
+  },
+  {
+    "timestamp": "2026-01-22T15:00:00.949972",
+    "date": "2026-01-22",
+    "model": "google/gemma-3n-e2b-it:free",
+    "tokens_in": 44,
+    "tokens_out": 23,
+    "cost": 0.0,
+    "session_id": "8d7900e4-c1b2-4073-a4b9-1c6cfff24adc"
+  },
+  {
+    "timestamp": "2026-01-26T11:38:49.411122",
+    "date": "2026-01-26",
+    "model": "google/gemma-3n-e2b-it:free",
+    "tokens_in": 6,
+    "tokens_out": 38,
+    "cost": 0.0,
+    "session_id": "334bb56e-14d7-43a2-ba2e-5bebb3613ec2"
+  },
+  {
+    "timestamp": "2026-01-27T10:09:56.416044",
+    "date": "2026-01-27",
+    "model": "google/gemma-3n-e2b-it:free",
+    "tokens_in": 36,
+    "tokens_out": 16,
+    "cost": 0.0,
+    "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00"
+  },
+  {
+    "timestamp": "2026-01-27T11:13:44.967522",
+    "date": "2026-01-27",
+    "model": "google/gemma-3n-e2b-it:free",
+    "tokens_in": 56,
+    "tokens_out": 10,
+    "cost": 0.0,
+    "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00"
+  },
+  {
+    "timestamp": "2026-01-27T11:14:00.223563",
+    "date": "2026-01-27",
+    "model": "google/gemma-3n-e2b-it:free",
+    "tokens_in": 71,
+    "tokens_out": 8,
+    "cost": 0.0,
+    "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00"
+  },
+  {
+    "timestamp": "2026-01-27T11:14:24.305711",
+    "date": "2026-01-27",
+    "model": "google/gemma-3n-e2b-it:free",
+    "tokens_in": 50,
+    "tokens_out": 21,
+    "cost": 0.0,
+    "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00"
+  },
+  {
+    "timestamp": "2026-01-27T11:14:51.608917",
+    "date": "2026-01-27",
+    "model": "google/gemma-3n-e2b-it:free",
+    "tokens_in": 57,
+    "tokens_out": 12,
+    "cost": 0.0,
+    "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00"
+  },
+  {
+    "timestamp": "2026-01-27T11:15:04.740612",
+    "date": "2026-01-27",
+    "model": "google/gemma-3n-e2b-it:free",
+    "tokens_in": 61,
+    "tokens_out": 28,
+    "cost": 0.0,
+    "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00"
+  },
+  {
+    "timestamp": "2026-01-27T12:09:02.466281",
+    "date": "2026-01-27",
+    "model": "google/gemma-3n-e2b-it:free",
+    "tokens_in": 31,
+    "tokens_out": 7,
+    "cost": 0.0,
+    "session_id": "195933e4-d8b2-451e-a322-87cb0d5a240e"
+  },
+  {
+    "timestamp": "2026-01-27T12:09:17.228453",
+    "date": "2026-01-27",
+    "model": "google/gemma-3n-e2b-it:free",
+    "tokens_in": 44,
+    "tokens_out": 20,
+    "cost": 0.0,
+    "session_id": "195933e4-d8b2-451e-a322-87cb0d5a240e"
+  },
+  {
+    "timestamp": "2026-01-27T12:19:02.835329",
+    "date": "2026-01-27",
+    "model": "google/gemma-3n-e2b-it:free",
+    "tokens_in": 65,
+    "tokens_out": 129,
+    "cost": 0.0,
+    "session_id": "195933e4-d8b2-451e-a322-87cb0d5a240e"
+  }
+]

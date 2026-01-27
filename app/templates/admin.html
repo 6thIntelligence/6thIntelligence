@@ -1,0 +1,1068 @@
+{% extends "base.html" %}
+
+{% block title %}ExpertAdmin | Command Center{% endblock %}
+
+{% block content %}
+<div class="admin-layout">
+    <!-- Main Sidebar Navigation -->
+    <aside class="admin-sidebar-nav">
+        <div class="sidebar-brand">
+            <div class="logo-icon-premium"></div>
+            <span class="brand-text">ExpertAdmin</span>
+        </div>
+
+        <div class="admin-profile">
+            <div class="profile-avatar">{{ user_email[0].upper() }}</div>
+            <div class="profile-details">
+                <p class="profile-email">{{ user_email }}</p>
+                <p class="profile-status"><span class="status-dot online"></span> Active Session</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-menu">
+            <div class="menu-label">Analytics & Insight</div>
+            <a href="javascript:void(0)" id="link-dashboard" class="menu-item active"
+                onclick="showPage('dashboard', this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Dashboard</span>
+            </a>
+
+            <div class="menu-label">Configurations</div>
+            <a href="javascript:void(0)" id="link-ai-engine" class="menu-item" onclick="showPage('ai-engine', this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a10 10 0 1 0 10 10H12V2z"></path>
+                    <path d="M12 12L2.05 12.05"></path>
+                    <path d="M12 12V22"></path>
+                    <path d="M12 12L21.95 11.95"></path>
+                </svg>
+                <span>AI Core & Persona</span>
+            </a>
+            <a href="javascript:void(0)" id="link-knowledge" class="menu-item" onclick="showPage('knowledge', this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 4z"></path>
+                </svg>
+                <span>Knowledge Base</span>
+            </a>
+
+            <div class="menu-label">System Audit</div>
+            <a href="javascript:void(0)" id="link-monitoring" class="menu-item" onclick="showPage('monitoring', this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <span>Logs & Handovers</span>
+            </a>
+            <a href="javascript:void(0)" id="link-enterprise" class="menu-item" onclick="showPage('enterprise', this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+                <span>Enterprise Integration</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="/" class="menu-item alt">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Live Chat View</span>
+            </a>
+            <a href="/logout" class="menu-item logout">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                <span>Secure Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Content Area Container -->
+    <main class="admin-main-view">
+        <div id="page-dashboard" class="admin-view-inner active">
+            <div class="view-header">
+                <div>
+                    <h1>Command Dashboard</h1>
+                    <p class="subtitle">Real-time system health and interaction metrics</p>
+                </div>
+                <div class="view-actions">
+                    <div class="badge premium">Scale: Enterprise</div>
+                </div>
+            </div>
+
+            <div class="view-content">
+                <div class="insight-row">
+                    <div class="premium-card heatmap-card-full">
+                        <div class="card-title-row">
+                            <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                                </svg> Global Interaction Heatmap (365 Days)</h3>
+                            <div class="heatmap-key">
+                                Less <div class="box lv0"></div>
+                                <div class="box lv1"></div>
+                                <div class="box lv2"></div>
+                                <div class="box lv3"></div> More
+                            </div>
+                        </div>
+                        <div class="heatmap-scroll-wrapper">
+                            <div id="activity-heatmap" class="heatmap-grid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="insight-grid-2">
+                    <div class="premium-card">
+                        <h3>Token Usage Dynamics</h3>
+                        <div class="canvas-wrapper">
+                            <canvas id="tokenChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="premium-card">
+                        <h3>System Status Overview</h3>
+                        <div class="status-list">
+                            <div class="status-item">
+                                <span class="label">Primary Engine</span>
+                                <span class="val">{{ settings.model_name }}</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="label">Vector Index</span>
+                                <span class="val success">Sync Active</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="label">OpenRouter Connectivity</span>
+                                <span class="val success">Optimal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-ai-engine" class="admin-view-inner">
+            <div class="view-header">
+                <h1>AI Core & Persona</h1>
+                <p class="subtitle">Configure logic, behavior, and model parameters</p>
+            </div>
+            <div class="view-content">
+                <div class="insight-grid-2">
+                    <div class="premium-card">
+                        <h3>Behavior Profile</h3>
+                        <div class="form-group-p">
+                            <label>Industry-Standard Persona</label>
+                            <select class="p-select" id="personaSelect" onchange="applyPersonaPreset(this.value)">
+                                <option value="general" {% if settings.persona_type=='general' %}selected{% endif %}>
+                                    General Business (Helpful/Neutral)</option>
+                                <option value="sales" {% if settings.persona_type=='sales' %}selected{% endif %}>
+                                    High-Energy Sales (Persuasive)</option>
+                                <option value="support" {% if settings.persona_type=='support' %}selected{% endif %}>
+                                    Customer Support (Empathy-First)</option>
+                                <option value="technical" {% if settings.persona_type=='technical' %}selected{% endif
+                                    %}>Technical Liaison (Precise)</option>
+                                <option value="custom" {% if settings.persona_type=='custom' %}selected{% endif %}>
+                                    Custom Logic</option>
+                            </select>
+                        </div>
+                        <div class="form-group-p">
+                            <label>Core Prompting Context</label>
+                            <textarea id="personaEditor" class="p-textarea">{{ settings.system_persona }}</textarea>
+                        </div>
+                        <button class="p-btn primary" onclick="updateConfigField('persona')">Update Brain
+                            Profile</button>
+                    </div>
+
+                    <div class="premium-card">
+                        <h3>Engine Settings</h3>
+                        <div class="form-group-p">
+                            <label>API Key (Masked)</label>
+                            <input type="password" id="apiKey" class="p-input" value="{{ masked_key }}">
+                        </div>
+                        <div class="form-group-p">
+                            <label>Temperature (Creativity): <span id="tempVal">{{ settings.temperature
+                                    }}</span></label>
+                            <input type="range" id="tempRange" class="p-range" min="0" max="1" step="0.05"
+                                value="{{ settings.temperature }}"
+                                oninput="document.getElementById('tempVal').innerText=this.value">
+                        </div>
+                        <div class="side-by-side">
+                            <div class="form-group-p">
+                                <label>Think Delay Min (s)</label>
+                                <input type="number" id="delayMin" class="p-input"
+                                    value="{{ settings.response_delay_min }}">
+                            </div>
+                            <div class="form-group-p">
+                                <label>Think Delay Max (s)</label>
+                                <input type="number" id="delayMax" class="p-input"
+                                    value="{{ settings.response_delay_max }}">
+                            </div>
+                        </div>
+                        <button class="p-btn primary" onclick="updateConfigField('technical')">Deploy Technical
+                            Parameters</button>
+                    </div>
+                </div>
+
+                <div class="premium-card mt-2">
+                    <div class="card-header-cta">
+                        <h3>Active Engine Selection</h3>
+                        <button class="p-btn secondary small" onclick="refreshModels()" id="refresh-btn">Fetch
+                            OpenRouter Models</button>
+                    </div>
+                    <div class="filter-row">
+                        <input type="text" id="model-search" class="p-input ghost"
+                            placeholder="Search across 100+ AI models by Google, OpenAI, Meta...">
+                    </div>
+                    <div id="models-box" class="models-grid-premium">
+                        <div class="placeholder-msg">Click 'Fetch' to sync your local engine with OpenRouter's latest
+                            library.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-knowledge" class="admin-view-inner">
+            <div class="view-header">
+                <h1>Knowledge Base</h1>
+                <p class="subtitle">Manage the data that grounds your AI's responses</p>
+            </div>
+            <div class="view-content">
+                <div class="insight-grid-2">
+                    <div class="premium-card">
+                        <h3>Upload Nexus</h3>
+                        <div id="drop-zone" class="premium-drop-zone">
+                            <div class="dz-icon">📁</div>
+                            <p>Drop PDF, DOCX, XLSX, or TXT here to index</p>
+                            <input type="file" id="fileInput" hidden multiple onchange="handleFileUpload(this.files)">
+                        </div>
+                        <div id="upload-status" class="upload-status-area"></div>
+                    </div>
+                    <div class="premium-card">
+                        <h3>Indexed Content</h3>
+                        <div id="kb-list" class="kb-file-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-monitoring" class="admin-view-inner">
+            <div class="view-header">
+                <h1>Audit & Live Logs</h1>
+            </div>
+            <div class="view-content">
+                <div class="premium-card">
+                    <h3>Critical Handover Requests</h3>
+                    <div id="handover-box" class="handover-list"></div>
+                </div>
+                <div class="premium-card mt-2">
+                    <h3>Recent Session Audits</h3>
+                    <div class="table-frame">
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Identifer</th>
+                                    <th>Msg Count</th>
+                                    <th>Audit</th>
+                                </tr>
+                            </thead>
+                            <tbody id="logs-list"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-enterprise" class="admin-view-inner">
+            <div class="view-header">
+                <h1>Enterprise Bridge</h1>
+            </div>
+            <div class="view-content">
+                <div class="premium-card half-card">
+                    <h3>System Integrations</h3>
+                    <div class="form-group-p">
+                        <label>SQL Database Connection String</label>
+                        <input type="text" id="dbConn" class="p-input" value="{{ settings.db_connection }}">
+                    </div>
+                    <div class="form-group-p">
+                        <label>CRM (HubSpot/Salesforce Key)</label>
+                        <input type="password" id="crmKey" class="p-input" value="{{ settings.crm_api_key }}">
+                    </div>
+                    <button class="p-btn primary" onclick="updateConfigField('enterprise')">Save Integrations</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<style>
+    :root {
+        --admin-bg: #F0F2F5;
+        --sidebar-bg: #FFFFFF;
+        --sidebar-border: #E5E7EB;
+        --card-bg: #FFFFFF;
+        --accent: #BBE15F;
+        /* ExpertListing Green */
+        --accent-hover: #a5c854;
+        --text-pri: #111827;
+        --text-sec: #6B7280;
+    }
+
+    .admin-layout {
+        display: flex;
+        height: 100vh;
+        background: var(--admin-bg);
+        color: var(--text-pri);
+        font-family: 'Outfit', sans-serif;
+        overflow: hidden;
+    }
+
+    /* Sidebar */
+    .admin-sidebar-nav {
+        width: 280px;
+        background: var(--sidebar-bg);
+        border-right: 1px solid var(--sidebar-border);
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 1rem;
+    }
+
+    .sidebar-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .brand-text {
+        font-weight: 800;
+        font-size: 1.25rem;
+        letter-spacing: -0.5px;
+    }
+
+    .logo-icon-premium {
+        width: 32px;
+        height: 32px;
+        background: url('/static/favicon.png') no-repeat center;
+        background-size: contain;
+    }
+
+    .admin-profile {
+        background: #F9FAFB;
+        padding: 1rem;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        border: 1px solid #eee;
+    }
+
+    .profile-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+    }
+
+    .profile-details {
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .profile-email {
+        font-size: 0.8rem;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .profile-status {
+        font-size: 0.7rem;
+        color: var(--text-sec);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+    }
+
+    .status-dot.online {
+        background: #10B981;
+    }
+
+    .menu-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        color: #9CA3AF;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 1.5rem 0.5rem 0.5rem;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem 1rem;
+        border-radius: 10px;
+        text-decoration: none;
+        color: var(--text-sec);
+        font-weight: 500;
+        transition: all 0.2s;
+        font-size: 0.9rem;
+    }
+
+    .menu-item:hover {
+        background: #F3F4F6;
+        color: var(--text-pri);
+    }
+
+    .menu-item.active {
+        background: #111827;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-item.active svg {
+        color: var(--accent);
+    }
+
+    .sidebar-bottom {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        border-top: 1px solid #eee;
+        padding-top: 1.5rem;
+    }
+
+    .menu-item.logout {
+        color: #EF4444;
+    }
+
+    .menu-item.logout:hover {
+        background: #FEF2F2;
+    }
+
+    /* Main Content */
+    .admin-main-view {
+        flex: 1;
+        overflow-y: auto;
+        padding: 2.5rem;
+        position: relative;
+    }
+
+    .admin-view-inner {
+        display: none;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .admin-view-inner.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .view-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 2.5rem;
+    }
+
+    .view-header h1 {
+        font-size: 1.75rem;
+        font-weight: 800;
+        margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+        color: var(--text-sec);
+        font-size: 0.95rem;
+    }
+
+    .insight-row {
+        margin-bottom: 2rem;
+    }
+
+    .insight-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .premium-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        border: 1px solid #E5E7EB;
+    }
+
+    .premium-card h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: var(--text-pri);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Heatmap */
+    .heatmap-card-full {
+        grid-column: 1 / -1;
+    }
+
+    .card-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .heatmap-key {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.7rem;
+        color: var(--text-sec);
+    }
+
+    .heatmap-key .box {
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+    }
+
+    .lv0 {
+        background: #EBEDF0;
+    }
+
+    .lv1 {
+        background: #9BE9A8;
+    }
+
+    .lv2 {
+        background: #40C463;
+    }
+
+    .lv3 {
+        background: #216E39;
+    }
+
+    .heatmap-scroll-wrapper {
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+
+    .heatmap-grid {
+        display: grid;
+        grid-template-columns: repeat(53, 1fr);
+        gap: 3px;
+        min-width: 800px;
+    }
+
+    .heatmap-grid div {
+        aspect-ratio: 1/1;
+        border-radius: 2px;
+        transition: transform 0.1s;
+    }
+
+    .heatmap-grid div:hover {
+        transform: scale(1.3);
+        outline: 1px solid #ccc;
+        z-index: 2;
+    }
+
+    /* Form Elements */
+    .form-group-p {
+        margin-bottom: 1.25rem;
+    }
+
+    .form-group-p label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--text-sec);
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .p-input,
+    .p-select,
+    .p-textarea {
+        width: 100%;
+        border: 1px solid #D1D5DB;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        font-family: inherit;
+        font-size: 0.95rem;
+        transition: all 0.2s;
+        background: #FDFDFD;
+    }
+
+    .p-input:focus,
+    .p-select:focus,
+    .p-textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(187, 225, 95, 0.15);
+        background: #fff;
+    }
+
+    .p-textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .side-by-side {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .p-btn {
+        border: none;
+        border-radius: 10px;
+        padding: 0.8rem 1.5rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: inherit;
+        font-size: 0.9rem;
+    }
+
+    .p-btn.primary {
+        background: var(--accent);
+        color: #000;
+        box-shadow: 0 4px 6px rgba(187, 225, 95, 0.2);
+        width: 100%;
+    }
+
+    .p-btn.primary:hover {
+        background: var(--accent-hover);
+        transform: translateY(-1px);
+    }
+
+    .p-btn.secondary {
+        background: #111827;
+        color: #fff;
+    }
+
+    .p-btn.small {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    /* Models Grid */
+    .models-grid-premium {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 0.5rem;
+        background: #F9FAFB;
+        border-radius: 12px;
+        border: 1px inset #eee;
+    }
+
+    .model-chip {
+        background: #fff;
+        border: 1px solid #E5E7EB;
+        padding: 1rem;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .model-chip:hover {
+        border-color: var(--accent);
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .model-chip .m-name {
+        font-weight: 700;
+        font-size: 0.85rem;
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .model-chip .m-id {
+        font-size: 0.7rem;
+        color: var(--text-sec);
+    }
+
+    .model-chip.active {
+        border-color: var(--accent);
+        background: #fdfef9;
+    }
+
+    .premium-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .premium-table th {
+        text-align: left;
+        padding: 1rem;
+        color: var(--text-sec);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        border-bottom: 2px solid #F3F4F6;
+    }
+
+    .premium-table td {
+        padding: 1.25rem 1rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #F3F4F6;
+    }
+
+    .premium-drop-zone {
+        border: 2px dashed #D1D5DB;
+        border-radius: 16px;
+        padding: 4rem 2rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .premium-drop-zone:hover {
+        border-color: var(--accent);
+        background: rgba(187, 225, 95, 0.05);
+    }
+
+    .badge {
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .badge.premium {
+        background: #111827;
+        color: #fff;
+    }
+
+    .success {
+        color: #10B981;
+        font-weight: 700;
+    }
+
+    /* Upload Status */
+    .upload-status-area {
+        margin-top: 1rem;
+        max-height: 150px;
+        overflow-y: auto;
+    }
+    .upload-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #F9FAFB;
+        padding: 0.75rem;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+        border: 1px solid #eee;
+        font-size: 0.85rem;
+    }
+    .upload-item .file-name {
+        font-weight: 600;
+        color: var(--text-pri);
+    }
+    .upload-item .status {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+    .status.pending { color: #F59E0B; }
+    .status.processing { color: #3B82F6; }
+    .status.success { color: #10B981; }
+    .status.error { color: #EF4444; }
+</style>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function showPage(pageId, el) {
+        document.querySelectorAll('.admin-view-inner').forEach(v => v.classList.remove('active'));
+        document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+
+        document.getElementById('page-' + pageId).classList.add('active');
+        if (el) el.classList.add('active');
+
+        if (pageId === 'dashboard') loadDashboard();
+        if (pageId === 'knowledge') loadKB();
+        if (pageId === 'monitoring') loadAudit();
+    }
+
+    async function loadDashboard() {
+        const res = await fetch('/api/admin/stats');
+        const data = await res.json();
+
+        // Heatmap
+        const heatmap = document.getElementById('activity-heatmap');
+        heatmap.innerHTML = '';
+        const today = new Date();
+        for (let i = 370; i >= 0; i--) {
+            const d = new Date(today);
+            d.setDate(today.getDate() - i);
+            const ds = d.toISOString().split('T')[0];
+            const count = data.heatmap[ds] || 0;
+            const box = document.createElement('div');
+            let lv = 0;
+            if (count > 0) lv = 1;
+            if (count >= 5) lv = 2;
+            if (count >= 15) lv = 3;
+            box.className = 'lv' + lv;
+            box.title = `${ds}: ${count} interactions`;
+            heatmap.appendChild(box);
+        }
+
+        // Token Chart
+        const ctx = document.getElementById('tokenChart').getContext('2d');
+        if (window.tokenChart) window.tokenChart.destroy();
+        window.tokenChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.token_stats.map(s => s.date),
+                datasets: [{
+                    label: 'Tokens Consumed',
+                    data: data.token_stats.map(s => s.count),
+                    fill: 'start',
+                    backgroundColor: 'rgba(187, 225, 95, 0.1)',
+                    borderColor: '#BBE15F',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    pointRadius: 0
+                }]
+            },
+            options: { maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true, grid: { borderDash: [5, 5] } } } }
+        });
+    }
+
+    async function updateConfigField(section) {
+        let payload = {};
+        if (section === 'persona') {
+            payload = {
+                persona_type: document.getElementById('personaSelect').value,
+                system_persona: document.getElementById('personaEditor').value
+            };
+        } else if (section === 'technical') {
+            const key = document.getElementById('apiKey').value;
+            payload = {
+                temperature: parseFloat(document.getElementById('tempRange').value),
+                response_delay_min: parseFloat(document.getElementById('delayMin').value),
+                response_delay_max: parseFloat(document.getElementById('delayMax').value)
+            };
+            if (!key.includes('...')) payload.openrouter_api_key = key;
+        } else if (section === 'enterprise') {
+            payload = {
+                db_connection: document.getElementById('dbConn').value,
+                crm_api_key: document.getElementById('crmKey').value
+            };
+        }
+
+        const res = await fetch('/api/admin/config', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        if (res.ok) alert('Changes deployed successfully.');
+        else alert('Deployment failed.');
+    }
+
+    function applyPersonaPreset(type) {
+        const editor = document.getElementById('personaEditor');
+        const presets = {
+            general: "You are a highly capable and friendly Enterprise AI Assistant. Your goal is to be helpful, concise, and professional.",
+            sales: "You are a world-class Sales Exec. You are persuasive, energetic, and focused on driving value. You ask insightful questions to guide users to the best product solution.",
+            support: "You are a senior Customer Success manager. You are extremely patient, empathetic, and detail-oriented. You prioritize resolving concerns with care.",
+            technical: "You are a technical consultant. You provide structured, code-heavy, or data-driven responses. You are factual and objective."
+        };
+        if (presets[type]) editor.value = presets[type];
+    }
+
+    async function loadKB() {
+        const res = await fetch('/api/admin/kb');
+        const data = await res.json();
+        const box = document.getElementById('kb-list');
+        box.innerHTML = data.docs.map(d => `
+            <div class="kb-file-item" style="display:flex; justify-content:space-between; align-items:center; padding: 1rem; border-bottom:1px solid #eee;">
+                <span>📄 ${d.filename}</span>
+                <button onclick="deleteKB(${d.id})" style="color:red; background:none; border:none; cursor:pointer;">Delete</button>
+            </div>
+        `).join('') || '<div style="padding:2rem; text-align:center; color:#999;">No files uploaded.</div>';
+    }
+
+    async function deleteKB(id) {
+        if (confirm('Wipe this document from vector storage?')) {
+            await fetch(`/api/admin/kb/${id}`, { method: 'DELETE' });
+            loadKB();
+        }
+    }
+
+    async function handleFileUpload(files) {
+        const box = document.getElementById('upload-status');
+        box.innerHTML = ''; // Clear previous
+        
+        const fileList = Array.from(files);
+        
+        // Create initial entries
+        fileList.forEach((file, index) => {
+            const div = document.createElement('div');
+            div.className = 'upload-item';
+            div.id = `upload-item-${index}`;
+            div.innerHTML = `
+                <span class="file-name">${file.name}</span>
+                <span class="status pending">Waiting...</span>
+            `;
+            box.appendChild(div);
+        });
+        
+        for (let i = 0; i < fileList.length; i++) {
+            const file = fileList[i];
+            const itemEl = document.getElementById(`upload-item-${i}`);
+            const statusEl = itemEl.querySelector('.status');
+            
+            try {
+                statusEl.className = 'status processing';
+                statusEl.innerText = 'Uploading & Indexing...';
+                
+                const fd = new FormData();
+                fd.append('file', file);
+                
+                const res = await fetch('/api/upload', { method: 'POST', body: fd });
+                
+                if (res.ok) {
+                    statusEl.className = 'status success';
+                    statusEl.innerText = 'Indexed';
+                } else {
+                    const err = await res.json();
+                    throw new Error(err.detail || 'Failed');
+                }
+            } catch (e) {
+                statusEl.className = 'status error';
+                statusEl.innerText = 'Error';
+                itemEl.title = e.message;
+                const errorMsg = document.createElement('div');
+                errorMsg.style.fontSize = '0.7rem';
+                errorMsg.style.color = '#EF4444';
+                errorMsg.style.marginTop = '4px';
+                errorMsg.innerText = e.message;
+                itemEl.appendChild(errorMsg);
+            }
+        }
+        
+        loadKB();
+    }
+
+    async function loadAudit() {
+        const lres = await fetch('/api/admin/logs');
+        const ldata = await lres.json();
+        document.getElementById('logs-list').innerHTML = ldata.logs.map(l => `
+            <tr>
+                <td>${new Date(l.created_at).toLocaleTimeString()}</td>
+                <td><strong>${l.name || 'Anonymous'}</strong></td>
+                <td>${l.msg_count}</td>
+                <td><button class="p-btn secondary small" onclick="auditLog('${l.id}')">View</button></td>
+            </tr>
+        `).join('') || '<tr><td colspan="4">No sessions found.</td></tr>';
+
+        const hres = await fetch('/api/admin/handovers');
+        const hdata = await hres.json();
+        document.getElementById('handover-box').innerHTML = hdata.handovers.map(h => `
+            <div style="background:#fffafa; border:1px solid #ffe6e6; padding:1rem; border-radius:12px; margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center;">
+                <span><strong>${h.name || 'Session'}</strong> Requested Human Assistance</span>
+                <a href="/?s=${h.id}" target="_blank" style="color:var(--accent); font-weight:700;">Join Chat &rarr;</a>
+            </div>
+        `).join('') || '<div style="color:#999; text-align:center; padding:1rem;">Clear. No pending handovers.</div>';
+    }
+
+    async function auditLog(id) {
+        const res = await fetch(`/api/admin/logs/${id}`);
+        const data = await res.json();
+        let txt = data.messages.map(m => `[${m.role.toUpperCase()}] ${m.content}`).join('\n\n');
+        alert("--- SESSION AUDIT ---\n\n" + txt);
+    }
+
+    let modelBuffer = [];
+    async function refreshModels() {
+        const btn = document.getElementById('refresh-btn');
+        btn.innerHTML = "Syncing...";
+        const res = await fetch('/api/admin/models');
+        const data = await res.json();
+        modelBuffer = data.models;
+        renderModels();
+        btn.innerHTML = "Sync Complete";
+    }
+
+    function renderModels() {
+        const query = document.getElementById('model-search').value.toLowerCase();
+        const box = document.getElementById('models-box');
+        box.innerHTML = modelBuffer.filter(m => m.name.toLowerCase().includes(query) || m.id.toLowerCase().includes(query))
+            .map(m => `
+                <div class="model-chip" onclick="switchModel('${m.id}', '${m.name}')">
+                    <span class="m-name">${m.name.split('/')[1] || m.name}</span>
+                    <span class="m-id">${m.id}</span>
+                </div>
+            `).join('');
+    }
+
+    async function switchModel(id, name) {
+        if (confirm(`Switch Engine to ${name}?`)) {
+            const res = await fetch('/api/admin/config', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ model: id, model_name: name })
+            });
+            if (res.ok) location.reload();
+        }
+    }
+
+    document.getElementById('model-search').oninput = renderModels;
+    document.getElementById('drop-zone').onclick = () => document.getElementById('fileInput').click();
+
+    window.onload = () => {
+        loadDashboard();
+        setInterval(loadDashboard, 60000);
+    };
+</script>
+{% endblock %}

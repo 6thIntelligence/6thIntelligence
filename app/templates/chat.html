@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block title %}Chat - Enterprise AI{% endblock %}
+
+{% block content %}
+<div class="app-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <div class="logo-icon"></div>
+            ExpertBot
+        </div>
+
+        <button onclick="newChat()" class="btn-primary"
+            style="width: 100%; margin-bottom: 1.5rem; justify-content: center; display: flex; align-items: center; gap: 0.5rem;">
+            <span>+ New Chat</span>
+        </button>
+
+        <div class="text-small"
+            style="text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 0.75rem;">Recent
+            Chats</div>
+
+        <div id="session-list" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.25rem;">
+            <!-- Generated via JS -->
+            <div style="padding: 1rem; text-align: center; color: var(--text-secondary);" class="text-small">Loading
+                history...</div>
+        </div>
+
+    </div>
+
+    <!-- Main Chat Area -->
+    <div class="main-content">
+        <div class="chat-window" id="chat-window">
+            <div class="message">
+                <div class="message-avatar"><img src="/static/ai-avatar.png" alt="AI"></div>
+                <div class="message-content">
+                    Hello! I am your Enterprise AI assistant. How can I help you today?
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <div class="input-container">
+                <button class="btn-icon" onclick="document.getElementById('file-upload').click()" title="Upload File">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48">
+                        </path>
+                    </svg>
+                </button>
+                <input type="file" id="file-upload" style="display: none;" onchange="handleFileUpload(this)">
+
+                <textarea id="chat-input" rows="1" placeholder="Type your message..." oninput="autoResize(this)"
+                    onkeydown="checkEnter(event)"></textarea>
+
+                <button class="btn-icon btn-send" onclick="sendMessage()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+            <div id="upload-feedback" class="text-small"
+                style="margin-top: 0.5rem; color: var(--success-color); position: absolute; bottom: 0.5rem;"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let sessionId = "{{ session_id }}";
+    let currentNodeId = null;
+
+    // Auto Resize Textarea
+    function autoResize(el) {
+        el.style.height = 'auto';
+        el.style.height = Math.min(el.scrollHeight, 200) + 'px';
+    }
+
+    function checkEnter(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    }
+
+    // Load Sessions on Start
+    window.onload = async () => {
+        await loadSessions();
+        // Check if URL has specific session
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlSession = urlParams.get('s');
+        if (urlSession && urlSession !== sessionId) {
+            await loadChat(urlSession);
+        }
+    };
+
+    async function loadSessions() {
+        try {
+            const res = await fetch('/api/chat/sessions');
+            const data = await res.json();
+            const list = document.getElementById('session-list');
+            list.innerHTML = '';
+
+            data.sessions.forEach(s => {
+                const item = document.createElement('div');
+                item.className = 'nav-item';
+                item.style.cursor = 'pointer';
+                if (s.id === sessionId) item.classList.add('active');
+
+                // Simple formatting
+                const date = new Date(s.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+
+                item.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <div style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; flex:1;">${s.name}</div>
+                    <span style="font-size:0.7em; opacity:0.7;">${date}</span>
+                `;
+                item.onclick = () => loadChat(s.id);
+                list.appendChild(item);
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async function newChat() {
+        window.location.href = '/';
+    }
+
+    async function loadChat(id) {
+        sessionId = id;
+        document.getElementById('chat-window').innerHTML = ''; // Clear
+
+        // Fetch history
+        try {
+            const res = await fetch(`/api/chat/history/${id}`);
+            const data = await res.json();
+
+            if (data.messages.length === 0) {
+                appendMessage('AI', 'Hello! I am your Enterprise AI assistant. How can I help you today?');
+            } else {
+                data.messages.forEach(m => {
+                    appendMessage(m.role === 'user' ? 'User' : 'AI', m.content);
+                });
+            }
+
+            // Update active state in sidebar
+            loadSessions(); // re-render to update active class
+
+        } catch (e) {
+            console.error("Error loading chat", e);
+        }
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('chat-input');
+        const text = input.value.trim();
+        if (!text) return;
+
+        input.value = '';
+        input.style.height = 'auto';
+        appendMessage('User', text);
+
+        // Scrape context
+        const windowDiv = document.getElementById('chat-window');
+        const msgs = Array.from(windowDiv.children).slice(-10);
+        const contextMessages = [];
+        msgs.forEach(div => {
+            const isUser = div.classList.contains('user');
+            const txt = div.querySelector('.message-content').innerText;
+            contextMessages.push({ role: isUser ? 'user' : 'assistant', content: txt });
+        });
+
+        const payload = {
+            messages: contextMessages,
+            parent_node_id: currentNodeId
+        };
+
+        // SHOW TYPING INDICATOR
+        const typingDiv = appendMessage('AI', '');
+        const typingContent = typingDiv.querySelector('.message-content');
+        typingContent.innerHTML = `<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+        try {
+            const response = await fetch(`/api/chat?session_id=${sessionId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error('Network error');
+
+            // Fractal IDs
+            const uNodeId = response.headers.get('X-User-Node-ID');
+            const aNodeId = response.headers.get('X-Assistant-Node-ID');
+            if (aNodeId) currentNodeId = aNodeId;
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            typingContent.innerHTML = '';
+
+            let fullText = '';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                const chunk = decoder.decode(value);
+                fullText += chunk;
+                typingContent.innerText = fullText; // Update the SAME bubble
+
+                // Scroll to bottom
+                const win = document.getElementById('chat-window');
+                win.scrollTop = win.scrollHeight;
+            }
+
+            // Refresh sidebar to show updated timestamp/name if new
+            loadSessions();
+
+        } catch (e) {
+            typingContent.innerText = 'Error: ' + e.message;
+        }
+    }
+
+    function appendMessage(sender, text) {
+        const win = document.getElementById('chat-window');
+        const div = document.createElement('div');
+        div.className = `message ${sender === 'User' ? 'user' : ''}`;
+
+        const avatarContent = sender === 'User' ? 'YOU' : '<img src="/static/ai-avatar.png" alt="AI">';
+
+        div.innerHTML = `
+            <div class="message-avatar">${avatarContent}</div>
+            <div class="message-content">${text}</div>
+        `;
+
+        win.appendChild(div);
+        win.scrollTop = win.scrollHeight;
+        return div;
+    }
+
+    async function handleFileUpload(input) {
+        const file = input.files[0];
+        if (!file) return;
+
+        const fb = document.getElementById('upload-feedback');
+        fb.innerText = "Uploading " + file.name + "...";
+
+        const fd = new FormData();
+        fd.append('file', file);
+
+        try {
+            const res = await fetch('/api/upload', { method: 'POST', body: fd });
+            const d = await res.json();
+            fb.innerText = "Knowledge Base Updated: " + d.filename;
+            setTimeout(() => fb.innerText = '', 3000);
+        } catch (e) {
+            fb.innerText = "Error uploading file.";
+        }
+    }
+</script>
+{% endblock %}

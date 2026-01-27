@@ -1,0 +1,21 @@
+{"type": "response_time", "session_id": "8d7900e4-c1b2-4073-a4b9-1c6cfff24adc", "value": 58163.18726539612, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-22T14:58:30.521711"}
+{"type": "token_usage", "session_id": "8d7900e4-c1b2-4073-a4b9-1c6cfff24adc", "tokens_in": 11, "tokens_out": 22, "total": 33, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-22T14:58:30.521711"}
+{"type": "response_time", "session_id": "8d7900e4-c1b2-4073-a4b9-1c6cfff24adc", "value": 7283.169269561768, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-22T15:00:00.949972"}
+{"type": "response_time", "session_id": "334bb56e-14d7-43a2-ba2e-5bebb3613ec2", "value": 71655.50971031189, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-26T11:38:49.408610"}
+{"type": "response_time", "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00", "value": 36400.205850601196, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T10:09:56.413525"}
+{"type": "token_usage", "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00", "tokens_in": 36, "tokens_out": 16, "total": 52, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T10:09:56.414533"}
+{"type": "response_time", "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00", "value": 4465.255498886108, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T11:13:44.956977"}
+{"type": "token_usage", "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00", "tokens_in": 56, "tokens_out": 10, "total": 66, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T11:13:44.964983"}
+{"type": "response_time", "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00", "value": 3934.703826904297, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T11:14:00.222042"}
+{"type": "token_usage", "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00", "tokens_in": 71, "tokens_out": 8, "total": 79, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T11:14:00.222042"}
+{"type": "response_time", "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00", "value": 3715.766429901123, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T11:14:24.304697"}
+{"type": "token_usage", "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00", "tokens_in": 50, "tokens_out": 21, "total": 71, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T11:14:24.304697"}
+{"type": "response_time", "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00", "value": 5455.3234577178955, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T11:14:51.602198"}
+{"type": "token_usage", "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00", "tokens_in": 57, "tokens_out": 12, "total": 69, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T11:14:51.607311"}
+{"type": "response_time", "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00", "value": 3920.973300933838, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T11:15:04.738270"}
+{"type": "token_usage", "session_id": "258bd403-a235-49d6-9c89-0d142bca9e00", "tokens_in": 61, "tokens_out": 28, "total": 89, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T11:15:04.738270"}
+{"type": "response_time", "session_id": "195933e4-d8b2-451e-a322-87cb0d5a240e", "value": 2637.9973888397217, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T12:09:02.461156"}
+{"type": "token_usage", "session_id": "195933e4-d8b2-451e-a322-87cb0d5a240e", "tokens_in": 31, "tokens_out": 7, "total": 38, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T12:09:02.463215"}
+{"type": "response_time", "session_id": "195933e4-d8b2-451e-a322-87cb0d5a240e", "value": 3486.4702224731445, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T12:09:17.227922"}
+{"type": "token_usage", "session_id": "195933e4-d8b2-451e-a322-87cb0d5a240e", "tokens_in": 44, "tokens_out": 20, "total": 64, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T12:09:17.227922"}
+{"type": "response_time", "session_id": "195933e4-d8b2-451e-a322-87cb0d5a240e", "value": 5216.323375701904, "model": "google/gemma-3n-e2b-it:free", "timestamp": "2026-01-27T12:19:02.833310"}

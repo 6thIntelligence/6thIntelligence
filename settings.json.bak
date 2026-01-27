@@ -1,0 +1,46 @@
+{
+    "openrouter_api_key": "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",
+    "model": "google/gemma-3n-e2b-it:free",
+    "temperature": 0.1,
+    "system_persona": "You are a world-class Sales Exec. You are persuasive, energetic, and focused on driving value. You ask insightful questions to guide users to the best product solution.",
+    "model_name": "Google: Gemma 3n 2B (free)",
+    "response_delay_min": 0.0,
+    "response_delay_max": 5.0,
+    "db_connection": "",
+    "crm_api_key": "",
+    "persona_type": "sales",
+    "logging": {
+        "level": "INFO",
+        "file_path": "logs/app.log",
+        "max_size_mb": 10,
+        "backup_count": 5
+    },
+    "security": {
+        "rate_limit_per_minute": 60,
+        "rate_limit_chat_per_minute": 10,
+        "enable_injection_detection": true
+    },
+    "crm": {
+        "provider": "",
+        "client_id": "",
+        "client_secret": "",
+        "redirect_uri": "http://localhost:8000/api/crm/callback"
+    },
+    "handover": {
+        "notification_email": "",
+        "webhook_url": "",
+        "auto_escalate_negative_sentiment": true,
+        "sentiment_threshold": -0.5
+    },
+    "smtp": {
+        "server": "smtp.gmail.com",
+        "port": 587,
+        "user": "",
+        "password": ""
+    },
+    "cost_management": {
+        "monthly_budget_limit": 100.0,
+        "alert_at_percentage": 80,
+        "prefer_free_models": true
+    }
+}

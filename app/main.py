@@ -1,0 +1,76 @@
+from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from app.routers import chat, admin, auth, crm, handover
+from app import database
+from contextlib import asynccontextmanager
+from app.middleware.logging_middleware import LoggingMiddleware
+from app.middleware.rate_limiter import RateLimitMiddleware
+from app.middleware.security_headers import SecurityHeadersMiddleware
+from app.services import logging_service
+
+# Setup Templates
+templates = Jinja2Templates(directory="app/templates")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: Load settings, connect DB
+    logging_service.logger.info("System Startup: Initializing Enterprise Bot...")
+    database.init_db()
+    
+    # Seed Default Admin
+    from app.services import auth_service
+    from app.database import SessionLocal, User
+    db = SessionLocal()
+    admin_email = "abayomi@expertlisting.ng"
+    admin_user = db.query(User).filter(User.email == admin_email).first()
+    if not admin_user:
+        logging_service.logger.info(f"Seeding default admin: {admin_email}")
+        hashed_pw = auth_service.get_password_hash("innovate!2026")
+        new_admin = User(email=admin_email, hashed_password=hashed_pw)
+        db.add(new_admin)
+        db.commit()
+    elif not admin_user.hashed_password.startswith("$argon2id$"):
+        # Migration from bcrypt to argon2 if needed
+        logging_service.logger.info(f"Updating admin password to Argon2: {admin_email}")
+        admin_user.hashed_password = auth_service.get_password_hash("innovate!2026")
+        db.commit()
+    db.close()
+    
+    # Initialize Settings if new attributes needed (e.g. random delay)
+    from app.services.settings_service import load_settings, save_settings, DEFAULT_SETTINGS
+    s = load_settings()
+    if "response_delay_min" not in s:
+        s["response_delay_min"] = 0.0
+        s["response_delay_max"] = 0.0
+        save_settings(s)
+        
+    yield
+    # Shutdown
+    print("System Shutdown")
+    logging_service.logger.info("System Shutdown")
+
+app = FastAPI(
+    title="Enterprise AI Chatbot",
+    description="Production-grade AI Chatbot with OpenRouter Integration",
+    version="1.0.0",
+    lifespan=lifespan
+)
+
+# Add Middleware
+app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(LoggingMiddleware)
+app.add_middleware(RateLimitMiddleware, requests_per_minute=60, chat_requests_per_minute=10)
+
+# Mount Static Files
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
+# Include Routers
+app.include_router(chat.router)
+app.include_router(admin.router)
+app.include_router(auth.router)
+app.include_router(crm.router)
+app.include_router(handover.router)
+
+# The root "/" route is handled by app.routers.chat
