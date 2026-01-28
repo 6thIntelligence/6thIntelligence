@@ -1,0 +1,46 @@
+
+% CAUSAL-FRACTAL DETERMINISTIC RAG: ALGORITHM PSEUDOCODE
+% For inclusion in Research Paper
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\begin{algorithm}
+\caption{Trajectory Generation in Fractal-Causal State Space}
+\label{alg:cf_drag}
+\begin{algorithmic}[1]
+\Procedure{GenerateResponse}{$Q_t, \mathcal{S}_{t-1}, \mathcal{K}_B$}
+    \State \textbf{Input:} User Query $Q_t$, Previous Node $n_{t-1} \in \mathcal{S}$, Knowledge Base $\mathcal{K}_B$
+    \State \textbf{Output:} Response $R_t$, New Node $n_t$
+    
+    \State \Comment{\textbf{Step 1: Fractal Context Traversal}}
+    \State $\mathcal{C}_{history} \gets \text{WalkTree}(n_{t-1}, \text{root})$
+    \State $\mathcal{C}_{coarsened} \gets \{ summary(v) \text{ if } \text{is\_collapsed}(v) \text{ else } content(v) \mid v \in \mathcal{C}_{history} \}$
+    
+    \State \Comment{\textbf{Step 2: Causal Mechanism Verification}}
+    \State $Docs_{raw} \gets \text{VectorSearch}(Q_t, \mathcal{K}_B, k=10)$
+    \State $E_q \gets \text{ExtractEntities}(Q_t)$
+    \State $Docs_{verified} \gets \emptyset$
+    \For{$d \in Docs_{raw}$}
+        \State $E_d \gets \text{ExtractEntities}(d)$
+        \If{$\exists (e_i, e_j) \in (E_q \times E_d) \text{ s.t. Path}(e_i, e_j) \in \mathcal{G}_{causal}$}
+            \State $Docs_{verified} \gets Docs_{verified} \cup \{d\}$
+        \EndIf
+    \EndFor
+    
+    \State \Comment{\textbf{Step 3: Constrained Generation}}
+    \State $Prompt \gets \text{Format}(Q_t, Docs_{verified}, \mathcal{C}_{coarsened})$
+    \State $R_t \gets \text{LLM}(Prompt)$
+    
+    \State \Comment{\textbf{Step 4: Renormalization Group Step}}
+    \State $sim \gets \text{CosineSim}(emb(R_t), emb(content(n_{t-1})))$
+    \State $n_t \gets \text{CreateNode}(Q_t, R_t, n_{t-1})$
+    \If{$sim > \theta_{sim}$}
+        \State $summary \gets \text{LLM\_Summarize}(content(n_{t-1}), R_t)$
+        \State $\text{CollapseBranch}(n_{t-1}, n_t, summary)$ \Comment{RG Coarse-Graining}
+    \EndIf
+    
+    \Return $R_t, n_t$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}

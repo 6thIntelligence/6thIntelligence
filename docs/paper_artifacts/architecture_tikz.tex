@@ -1,0 +1,32 @@
+
+% ARCHITECTURE TIKZ DIAGRAM
+% For Section 3: Methodology
+
+\begin{tikzpicture}[
+    node distance=2cm,
+    block/.style={rectangle, draw, fill=blue!10, text width=5em, text centered, rounded corners, minimum height=4em},
+    cloud/.style={draw, ellipse, fill=red!10, node distance=3cm, minimum height=2em},
+    arrow/.style={thick,->,>=stealth}
+]
+
+% Nodes
+\node [block] (query) {User Query $Q_t$};
+\node [block, right of=query, node distance=4cm] (vector) {ChromaDB (Semantic Search)};
+\node [block, below of=vector] (causal) {Causal Verification (Graph $G$)};
+\node [block, left of=causal, node distance=4cm] (fractal) {Fractal Tree Manager (S_t)};
+\node [block, below of=causal, node distance=3cm, fill=green!10] (llm) {LLM (OpenRouter)};
+\node [cloud, right of=causal, node distance=4cm] (graph) {Knowledge Graph};
+
+% Paths
+\draw [arrow] (query) -- (vector);
+\draw [arrow] (vector) -- (causal);
+\draw [arrow] (causal) -- (llm);
+\draw [arrow] (fractal) -- (llm);
+\draw [arrow] (query) -- (fractal);
+\draw [arrow] (graph) -- (causal);
+\draw [arrow] (llm) -- node[anchor=west] {RG Update} (fractal);
+
+\node [draw, dashed, inner sep=1em, fit=(vector) (causal) (graph)] (rag_box) {};
+\node [anchor=north] at (rag_box.south) {Causal Retrieval Pipeline};
+
+\end{tikzpicture}

@@ -1,0 +1,17 @@
+
+\begin{table}[h]
+\centering
+\caption{Comparative Benchmarking of RAG Architectures Across Long-Form Conversations (N=40 turns)}
+\label{tab:results}
+\begin{booktabs}{ccc}
+\toprule
+\textbf{Metric} & \textbf{Standard RAG} & \textbf{Causal-Fractal RAG} \\
+\midrule
+Avg. Context Size (Tokens) & 20,450 & \textbf{4,820} \\
+Hallucination Rate ($t > 20$) & 18.4\% & \textbf{5.2\%} \\
+Entity Consistency (F1) & 0.68 & \textbf{0.91} \\
+Mechanism Recall (Causal) & 0.42 & \textbf{0.88} \\
+Inference Latency (Avg.) & 1.2s & 1.5s \\
+\bottomrule
+\end{booktabs}
+\end{table}
