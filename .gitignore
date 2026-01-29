@@ -15,8 +15,10 @@ ENV/
 
 # Databases & Logs
 *.db
+*.sqlite3
 *.log
 logs/
+data/chroma_db/
 
 # Research Artifacts (Optional: keeping for repo completeness but usually ignored if large)
 # results/
