@@ -1,0 +1,34 @@
+{
+  "conversation_id": "conv_045",
+  "ground_truth": {
+    "causal_edges": [
+      {
+        "source": "cause_A",
+        "target": "effect_B",
+        "mentioned_in_turn": 5,
+        "required_for_turn": 10
+      }
+    ],
+    "entities": [
+      {
+        "entity": "Entity_X",
+        "first_mention": 2,
+        "should_be_consistent_in": [
+          2,
+          10,
+          20,
+          39
+        ]
+      }
+    ],
+    "hallucination_checks": [
+      {
+        "turn": 15,
+        "expected_fact": "Fact X is True",
+        "hallucination_if_says": [
+          "Fact X is False"
+        ]
+      }
+    ]
+  }
+}

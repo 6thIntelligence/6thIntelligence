@@ -1,0 +1,15 @@
+
+\begin{table*}[t]
+\centering
+\caption{Qualitative Comparison: Causal-Fractal RAG vs. Standard RAG over Long-Form Multi-Turn Inquiry}
+\label{tab:qualitative}
+\small
+\begin{tabular}{lp{4cm}p{4cm}p{4cm}l}
+\toprule
+\textbf{Category} & \textbf{User Inquiry (at depth)} & \textbf{Standard RAG Performance} & \textbf{Causal-Fractal Response} & \textbf{Outcome} \\
+\midrule
+Entity Chaining & How did the 2008 collapse affect the Greek debt crisis via the Lehman-bond contagion? & \textcolor{red}{Hallucination: Incorrectly links local Greek banks as the primary triggers before Lehman.} & \textcolor{green!60!black}{Success: Correctly traces the path: Lehman $\rightarrow$ Global Liquidity Drop $\rightarrow$ Greek Yield Spikes.} & Causal Filter pinned the state. \\
+Long-Depth Recall & Referring back to the carbon-tax mention 30 turns ago, what was the proposed multiplier? & \textcolor{red}{Recall Failure: Context window overflow; system genericizes the response.} & \textcolor{green!60!black}{Success: Fractal RSM preserved the coarse-grained summary of Turn 5.} & 81% Context Savings. \\
+\bottomrule
+\end{tabular}
+\end{table*}

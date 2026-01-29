@@ -19,7 +19,7 @@ class StateManager:
     def __init__(self, db: Session):
         self.db = db
         settings = settings_service.load_settings()
-        self.similarity_threshold = settings.get("fractal_similarity_threshold", 0.90)
+        self.similarity_threshold = settings.get("fractal_similarity_threshold", 0.40)
         self.max_context_tokens = settings.get("max_context_tokens", 4000)
 
     async def get_context_chain(self, leaf_node_id: str) -> List[dict]:
