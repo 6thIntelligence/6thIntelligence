@@ -4,7 +4,7 @@ from datetime import datetime
 import uuid
 
 # SQLite database setup
-DATABASE_URL = "sqlite:///./enterprise_bot.db"
+DATABASE_URL = "sqlite:///./6th_intelligence.db"
 
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

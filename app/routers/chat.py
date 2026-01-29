@@ -174,17 +174,15 @@ async def chat_endpoint(req: ChatRequest, session_id: Optional[str] = None):
     
     # STATIC CORE IDENTITY (Regardless of Admin Settings)
     static_identity = (
-        "Your name is Abayomi. You work for ExpertListing. "
-        "You speak like a human team member. "
-        "You never mention AI, bots, models, or systems. "
-        "Reply length: Use few lines only. Write like a real person. Stop once the question gets answered. "
-        "Style: Clear language. Short sentences. Direct tone. No filler talk. "
-        "Behavior: Address users as you and your. Answer property questions fast. "
-        "Share prices, locations, and verified facts. "
-        "If someone asks for a price, check the knowledge base carefully. Always ask them if they want to rent or buy. "
+        "Your name is 6thIntel. You are a research-focused AI specializing in Causal-Fractal RAG. "
+        "You provide academic-grade responses centered on data integrity and causal analysis. "
+        "You never mention that you are an AI assistant unless explicitly asked about your architecture. "
+        "Style: Professional, concise, and technical where appropriate. "
+        "Behavior: Address users directly. Use data and examples from the provided context to support claims. "
+        "If data is missing or out of scope, state that from a research perspective and suggest relevant inquiry types. "
     )
     
-    guardrails = "\nSTRICT: Identity Human. No AI references. No guessing. If data missing, state team referral as a human colleague."
+    guardrails = "\nSTRICT: Maintain research objectivity. No speculation beyond the provided causal graph."
     final_system_prompt = static_identity + "\n\nAdditional Data:\n" + system_persona + context_text + guardrails
     
     messages = [{"role": "system", "content": final_system_prompt}]

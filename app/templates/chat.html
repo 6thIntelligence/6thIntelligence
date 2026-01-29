@@ -8,7 +8,7 @@
     <div class="sidebar">
         <div class="logo">
             <div class="logo-icon"></div>
-            ExpertBot
+            6thIntel
         </div>
 
         <button onclick="newChat()" class="btn-primary"
@@ -34,7 +34,8 @@
             <div class="message">
                 <div class="message-avatar"><img src="/static/ai-avatar.png" alt="AI"></div>
                 <div class="message-content">
-                    Hello! I am your Enterprise AI assistant. How can I help you today?
+                    Hello! I am your 6thIntelligence research assistant. How can I help you explore Causal-Fractal RAG
+                    today?
                 </div>
             </div>
         </div>
@@ -141,7 +142,7 @@
             const data = await res.json();
 
             if (data.messages.length === 0) {
-                appendMessage('AI', 'Hello! I am your Enterprise AI assistant. How can I help you today?');
+                appendMessage('AI', 'Hello! I am your 6thIntelligence research assistant. How can I help you explore Causal-Fractal RAG today?');
             } else {
                 data.messages.forEach(m => {
                     appendMessage(m.role === 'user' ? 'User' : 'AI', m.content);

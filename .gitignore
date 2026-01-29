@@ -1,0 +1,32 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.benchmarks/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Databases & Logs
+*.db
+*.log
+logs/
+
+# Research Artifacts (Optional: keeping for repo completeness but usually ignored if large)
+# results/
+# docs/paper_artifacts/*.png
+
+# VS Code / OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Settings (contains API keys)
+settings.json
+settings.json.bak

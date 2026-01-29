@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}ExpertAdmin | Command Center{% endblock %}
+{% block title %}6thIntel Admin | Research Center{% endblock %}
 
 {% block content %}
 <div class="admin-layout">
@@ -8,7 +8,7 @@
     <aside class="admin-sidebar-nav">
         <div class="sidebar-brand">
             <div class="logo-icon-premium"></div>
-            <span class="brand-text">ExpertAdmin</span>
+            <span class="brand-text">6thIntel Admin</span>
         </div>
 
         <div class="admin-profile">
@@ -101,7 +101,7 @@
                     <p class="subtitle">Real-time system health and interaction metrics</p>
                 </div>
                 <div class="view-actions">
-                    <div class="badge premium">Scale: Enterprise</div>
+                    <div class="badge premium">Tier: Research Gold</div>
                 </div>
             </div>
 
@@ -318,7 +318,7 @@
         --sidebar-border: #E5E7EB;
         --card-bg: #FFFFFF;
         --accent: #BBE15F;
-        /* ExpertListing Green */
+        /* 6thIntel Research Palette */
         --accent-hover: #a5c854;
         --text-pri: #111827;
         --text-sec: #6B7280;
@@ -791,6 +791,7 @@
         max-height: 150px;
         overflow-y: auto;
     }
+
     .upload-item {
         display: flex;
         justify-content: space-between;
@@ -802,19 +803,33 @@
         border: 1px solid #eee;
         font-size: 0.85rem;
     }
+
     .upload-item .file-name {
         font-weight: 600;
         color: var(--text-pri);
     }
+
     .upload-item .status {
         font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
     }
-    .status.pending { color: #F59E0B; }
-    .status.processing { color: #3B82F6; }
-    .status.success { color: #10B981; }
-    .status.error { color: #EF4444; }
+
+    .status.pending {
+        color: #F59E0B;
+    }
+
+    .status.processing {
+        color: #3B82F6;
+    }
+
+    .status.success {
+        color: #10B981;
+    }
+
+    .status.error {
+        color: #EF4444;
+    }
 </style>
 
 {% endblock %}
@@ -942,9 +957,9 @@
     async function handleFileUpload(files) {
         const box = document.getElementById('upload-status');
         box.innerHTML = ''; // Clear previous
-        
+
         const fileList = Array.from(files);
-        
+
         // Create initial entries
         fileList.forEach((file, index) => {
             const div = document.createElement('div');
@@ -956,21 +971,21 @@
             `;
             box.appendChild(div);
         });
-        
+
         for (let i = 0; i < fileList.length; i++) {
             const file = fileList[i];
             const itemEl = document.getElementById(`upload-item-${i}`);
             const statusEl = itemEl.querySelector('.status');
-            
+
             try {
                 statusEl.className = 'status processing';
                 statusEl.innerText = 'Uploading & Indexing...';
-                
+
                 const fd = new FormData();
                 fd.append('file', file);
-                
+
                 const res = await fetch('/api/upload', { method: 'POST', body: fd });
-                
+
                 if (res.ok) {
                     statusEl.className = 'status success';
                     statusEl.innerText = 'Indexed';
@@ -990,7 +1005,7 @@
                 itemEl.appendChild(errorMsg);
             }
         }
-        
+
         loadKB();
     }
 

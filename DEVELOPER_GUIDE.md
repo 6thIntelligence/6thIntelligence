@@ -1,4 +1,4 @@
-# Enterprise AI Chatbot: Production Readiness & Developer Guide
+# 6thIntelligence Core: Research Readiness & Developer Guide
 
 This document outlines the professional standards, security protocols, and evaluation techniques implemented in this solution to ensure it moves from a prototype to a "Senior-Level" production application.
 
@@ -6,7 +6,7 @@ This document outlines the professional standards, security protocols, and evalu
 
 ## 1. Professional Architecture
 - **Asynchronous Design**: The entire backend is built on **FastAPI** with `async/await` patterns. This ensures the system can handle thousands of concurrent users without blocking.
-- **Persistent Database**: Messages and knowledge base indexes are stored in a persistent SQLite database (ready for migration to PostgreSQL for distributed scaling).
+- **Persistent Database**: Messages and knowledge base indexes are stored in a persistent SQLite database (`6th_intelligence.db`).
 - **Vector Search (RAG)**: Uses **ChromaDB** for semantic retrieval. This is a standard industry practice to avoid "hallucinations" and ensure the AI only uses verified data.
 
 ## 2. Security Roadmap (Senior Implementation)

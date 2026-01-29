@@ -9,16 +9,16 @@ import random
 
 # Sample messages for testing
 SAMPLE_MESSAGES = [
-    "What properties are available in Lagos?",
-    "I'm looking for a 3-bedroom apartment in Lekki",
-    "What's the average rent in Ikoyi?",
-    "Can you help me find a house to buy?",
-    "How does ExpertListing verify listings?",
-    "I want to rent a property in Victoria Island",
-    "What areas have the best rental prices?",
-    "Tell me about property inspection services",
-    "Are there any studio apartments available?",
-    "What documents do I need to rent a property?",
+    "Explain the O(log t) scaling law in Fractal RAG.",
+    "How does the Causal Verification Layer prevent semantic drift?",
+    "What is the mathematical basis for Renormalization Groups in context management?",
+    "Compare Causal-Fractal RAG with linear Standard RAG.",
+    "How does the system handle entity chaining across 40 turns?",
+    "What are the latency tradeoffs for causal path verification?",
+    "Provide a summary of the phase transition at lambda 0.4.",
+    "Explain the K-Path Fidelity metric.",
+    "How does coarse-graining maintain global coherence?",
+    "Show me the ablation study results for the Causal Filter.",
 ]
 
 class ChatUser(HttpUser):

@@ -6,14 +6,14 @@ SETTINGS_FILE = "settings.json"
 
 DEFAULT_SETTINGS = {
     "openrouter_api_key": "",
-    "model": "openai/gpt-3.5-turbo", 
-    "temperature": 0.7,
-    "system_persona": "Persona definition:\nName: Ramos from ExpertListing.\nRole: Human support team member.\nIdentity: Always human.\nNo AI references.\nNo automation talk.\n\nGuardrails:\nNever mention AI.\nNever state you are an AI.\nNever hallucinate facts.\nIf information is missing, do not guess.\nAdmit when you lack specific data.\n\nProfessionalism:\nMaintain a spartan, calm, human tone.\nUse active voice.\nAvoid markdown and asterisks.",
-    "persona_type": "general",
-    "model_name": "GPT-3.5 Turbo",
-    "response_delay_min": 5.0,
-    "response_delay_max": 10.0,
-    "db_connection": "sqlite:///enterprise_bot.db",
+    "model": "google/gemma-3n-e2b-it:free", 
+    "temperature": 0.1,
+    "system_persona": "You are a research-focused AI for 6thIntelligence. Your goal is to provide data-driven insights into Causal-Fractal RAG architectures. Maintain academic rigor and professional tone.",
+    "persona_type": "research",
+    "model_name": "Gemma 3n 2B (free)",
+    "response_delay_min": 0.0,
+    "response_delay_max": 0.0,
+    "db_connection": "sqlite:///6th_intelligence.db",
     "crm_api_key": ""
 }
 

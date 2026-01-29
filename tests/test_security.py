@@ -34,11 +34,11 @@ class TestSQLInjectionDetection:
     def test_allows_normal_text(self):
         """Should not flag normal user messages"""
         normal_messages = [
-            "I want to find a property in Lagos",
-            "What's the price of a 3-bedroom apartment?",
-            "Can you help me buy a house?",
-            "The property should have 2 bedrooms",
-            "I'm looking for something under 500000 naira",
+            "Explain the fractal scaling law",
+            "What is the p-value for context efficiency?",
+            "How do I reproduce the ablation study?",
+            "The model should use a similarity threshold of 0.4",
+            "Analyze the mechanism recall results",
         ]
         
         for message in normal_messages:
@@ -96,11 +96,11 @@ class TestPromptInjectionDetection:
     def test_allows_legitimate_questions(self):
         """Should allow legitimate user questions"""
         legitimate = [
-            "What properties are available in Lagos?",
-            "Can you help me find a rental?",
-            "I'm looking to buy a house",
-            "What are the current market prices?",
-            "Tell me about your verification process",
+            "What dataset was used for the benchmark?",
+            "Explain the Causal Knowledge Graph structure",
+            "How does renormalization reduce tokens?",
+            "What are the P95 latency results?",
+            "Tell me about the Welch's T-test implementation",
         ]
         
         for message in legitimate:
@@ -127,12 +127,12 @@ class TestInputSanitization:
     
     def test_preserves_normal_text(self):
         """Should preserve normal text content"""
-        normal = "I want a 3-bedroom apartment in Lekki for 2 million naira"
+        normal = "The P95 latency for Fractal RAG is 1.5 seconds compared to 1.2s baseline"
         sanitized = security_service.sanitize_input(normal)
         # Key words should be preserved
-        assert "3-bedroom" in sanitized
-        assert "Lekki" in sanitized
-        assert "million" in sanitized
+        assert "latency" in sanitized
+        assert "Fractal" in sanitized
+        assert "seconds" in sanitized
     
     def test_handles_empty_input(self):
         """Should handle empty input"""
@@ -202,9 +202,9 @@ class TestEmailValidation:
     def test_valid_emails(self):
         """Should accept valid email formats"""
         valid = [
-            "test@example.com",
-            "user.name@domain.org",
-            "admin@expertlisting.ng",
+            "researcher@example.com",
+            "author@6thintelligence.ai",
+            "admin@6thintelligence.ai",
         ]
         for email in valid:
             assert security_service.validate_email(email), f"Should accept: {email}"

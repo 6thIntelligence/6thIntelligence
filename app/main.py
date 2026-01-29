@@ -19,24 +19,24 @@ templates = Jinja2Templates(directory="app/templates")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: Load settings, connect DB
-    logging_service.logger.info("System Startup: Initializing Enterprise Bot...")
+    logging_service.logger.info("System Startup: Initializing 6thIntelligence Research Dashboard...")
     database.init_db()
     
     # Seed Default Admin
     from app.services import auth_service
     from app.database import SessionLocal, User
     db = SessionLocal()
-    admin_email = "abayomi@expertlisting.ng"
+    admin_email = "research@6thintelligence.ai"
     admin_user = db.query(User).filter(User.email == admin_email).first()
     if not admin_user:
-        logging_service.logger.info(f"Seeding default admin: {admin_email}")
+        logging_service.logger.info(f"Seeding default researcher account: {admin_email}")
         hashed_pw = auth_service.get_password_hash("innovate!2026")
         new_admin = User(email=admin_email, hashed_password=hashed_pw)
         db.add(new_admin)
         db.commit()
     elif not admin_user.hashed_password.startswith("$argon2id$"):
         # Migration from bcrypt to argon2 if needed
-        logging_service.logger.info(f"Updating admin password to Argon2: {admin_email}")
+        logging_service.logger.info(f"Updating researcher password to Argon2: {admin_email}")
         admin_user.hashed_password = auth_service.get_password_hash("innovate!2026")
         db.commit()
     db.close()
@@ -51,12 +51,11 @@ async def lifespan(app: FastAPI):
         
     yield
     # Shutdown
-    print("System Shutdown")
     logging_service.logger.info("System Shutdown")
 
 app = FastAPI(
-    title="Enterprise AI Chatbot",
-    description="Production-grade AI Chatbot with OpenRouter Integration",
+    title="6thIntelligence: Causal-Fractal RAG",
+    description="Research Sandbox for Hierarchical Context Management & Causal Verification",
     version="1.0.0",
     lifespan=lifespan
 )
